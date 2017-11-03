@@ -1,0 +1,58 @@
+#include <iostream>
+#include <utility>
+#include <sstream>
+
+using namespace std;
+
+bool read (istream & stream, int* &A, unsigned int &razmer) {
+    bool result = true;
+    for (unsigned int i=0; i < razmer; i++) {
+        if (!(stream >> A[i])) {
+            result = false;
+            break;
+        }
+    }
+    return result;
+}
+
+
+void insertion_sort(int * A, unsigned int razmer) {
+    unsigned int i, j;
+    for (i = 1; i <  razmer; i++) {
+        j = i;
+       for (i = 1; i <  razmer; i++) {
+        for (j = i; j > 0 && A[j] < A[j - 1]; j--) {
+             swap (A[j], A[j - 1]);
+        }
+       }
+    }
+}
+
+
+void write(ostream & stream,int* A, unsigned int razmer) {
+    for (unsigned int i = 0; i < razmer; i++) {
+        stream << A[i] << ' ';
+    }
+}
+
+
+int main() {
+    unsigned int razmer;
+    int* A;
+    if(!(cin >>razmer)) {
+        cout << "An error has occured while reading numbers from line";
+        return 1;
+    }
+    cin.get();
+    string string;
+    getline(cin, string);
+    istringstream stream(string);
+    A = new int [razmer];
+    if( read(stream,A, razmer)) {
+        insertion_sort (A, razmer);
+        write (cout, A, razmer);
+    }
+    else {
+        cout << "An error has occured while reading numbers from line";
+    }
+}
